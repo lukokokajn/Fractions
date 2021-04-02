@@ -9,72 +9,73 @@ public class Fraction {
         this.numerator = numerator;
         this.denominator = denominator;
     }
-
-    //region: basic operations (+, -, *, /)
-    /**
-     * Adds the fraction to the other fraction. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
     public Fraction plus(Fraction other) {
-        throw new UnsupportedOperationException();
+
+        int cislo = MathUtils.findLowestCommonMultiple(denominator, other.denominator);
+
+        int a = cislo / other.denominator;
+        int b = cislo / denominator;
+        int c = numerator * a;
+        int d = other.numerator * b;
+
+        int fr = c + d;
+
+        return new Fraction(fr, cislo);
     }
 
-    /**
-     * Subtracts other from the fraction. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
     public Fraction minus(Fraction other) {
-        throw new UnsupportedOperationException();
+
+        int cislo = MathUtils.findLowestCommonMultiple(denominator, other.denominator);
+
+        int a = cislo / other.denominator;
+        int b = cislo / denominator;
+        int c = numerator * a;
+        int d = other.numerator * b;
+
+        int fr = c - d;
+
+        return new Fraction(fr, cislo);
     }
 
-    /**
-     * Multiplies the two fractions. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
     public Fraction times(Fraction other) {
-        throw new UnsupportedOperationException();
+
+        int timesDen = denominator * other.denominator;
+        int timesNum = numerator * other.numerator;
+
+        return new Fraction(timesNum, timesDen);
     }
 
-    /**
-     * Divides the two fractions (this / other). Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
     public Fraction dividedBy(Fraction other) {
-        throw new UnsupportedOperationException();
-    }
-    //endregion
 
-    //region: other operations
-    /**
-     * Gets the reciprocal (flipped) of the fraction. ie. reciprocal of 1/2 is 2/1
-     * @return new fraction
-     */
+        int divideDen = denominator * other.numerator;
+        int divideNum = numerator * other.denominator;
+
+        return new Fraction(divideNum, divideDen);
+    }
+
     public Fraction getReciprocal() {
-        throw new UnsupportedOperationException();
+        return new Fraction(getDenominator(), getNumerator());
     }
 
-    /**
-     * Simplifies the fraction
-     * @return new fraction
-     */
     public Fraction simplify() {
-        throw new UnsupportedOperationException();
+        int fr2 = MathUtils.findGreatestCommonDenominator(numerator, denominator);
+
+        int a = numerator / fr2;
+        int b = denominator / fr2;
+
+        return new Fraction(a, b);
     }
 
-    /**
-     * Calculates the floating value of the fraction.
-     * @return float
-     */
     public float toFloat() {
-        throw new UnsupportedOperationException();
+        float prevod = 0;
+        if (denominator != 0) {
+            prevod = (float) numerator / (float) denominator;
+        } else {
+            System.out.println("0 nelze");
+        }
+        return prevod;
     }
-    //endregion
 
-    //region: getters
     public int getNumerator() {
         return numerator;
     }
@@ -82,5 +83,4 @@ public class Fraction {
     public int getDenominator() {
         return denominator;
     }
-    //endregion
 }
